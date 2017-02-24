@@ -1,7 +1,6 @@
 package com.ximalaya.rabbitmq.helloworld;
 
 
-import com.rabbitmq.client.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -43,6 +42,6 @@ public class Sender {
 
         connection.close();
     }
-    
+
 
 }
