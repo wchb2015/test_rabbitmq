@@ -14,20 +14,22 @@
 
     <!-- 连接配置 -->
     <context:property-placeholder location="classpath:rabbitmq.properties"/>
+
     <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}"
                                password="${mq.password}" port="${mq.port}"/>
+
     <rabbit:admin connection-factory="connectionFactory"/>
 
     <!-- spring template声明-->
     <rabbit:template exchange="amqpExchange" id="amqpTemplate" connection-factory="connectionFactory"/>
 
     <!--申明queue-->
-    <rabbit:queue id="test_queue_key" name="test_queue_key" durable="true" auto-delete="false" exclusive="false"/>
+    <rabbit:queue id="test_queue_1" name="test_queue_1" durable="true" auto-delete="false" exclusive="false"/>
 
     <!--申明exchange交换机并绑定queue-->
-    <rabbit:direct-exchange name="amqpExchange" durable="true" auto-delete="false" id="amqpExchange">
+    <rabbit:direct-exchange name="test_exchange" durable="true" auto-delete="false" id="amqpExchange">
         <rabbit:bindings>
-            <rabbit:binding queue="test_queue_key" key="test_queue_key"/>
+            <rabbit:binding queue="test_queue_1" key="test_queue_1"/>
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
