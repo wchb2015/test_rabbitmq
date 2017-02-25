@@ -1,5 +1,9 @@
 package com.ximalaya.rabbitmq.helloworld;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0e64191175cc1f07721972653c7b33d76206bbc7
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;

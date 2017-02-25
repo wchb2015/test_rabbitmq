@@ -16,6 +16,16 @@
 
     <!-- 连接配置 -->
     <context:property-placeholder location="classpath:rabbitmq.properties"/>
+<<<<<<< HEAD
+=======
+
+    <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}"
+                               password="${mq.password}" port="${mq.port}"/>
+
+    <context:component-scan base-package="com.ximalaya.rabbitmq.helloworld"/>
+
+    <rabbit:admin connection-factory="connectionFactory"/>
+>>>>>>> 0e64191175cc1f07721972653c7b33d76206bbc7
 
     <!-- 连接本地rabbitmq -->
     <rabbit:connection-factory id="connectionFactory"
@@ -23,6 +33,7 @@
 
     <rabbit:admin connection-factory="connectionFactory" id="amqpAdmin" />
 
+<<<<<<< HEAD
     <!-- queue 队列声明 -->
     <rabbit:queue id="test_queues" durable="true"
                   auto-delete="false" exclusive="false" name="test_queues" />
@@ -38,4 +49,21 @@
     <!-- spring template声明 -->
     <rabbit:template exchange="mq-exchange" id="amqpTemplate"
                      connection-factory="connectionFactory" />
+=======
+    <!--申明queue-->
+    <rabbit:queue id="test_queue_1" name="test_queue_1" durable="true" auto-delete="false" exclusive="false"/>
+
+    <!--申明exchange交换机并绑定queue-->
+    <rabbit:direct-exchange name="test_exchange" durable="true" auto-delete="false" id="amqpExchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="test_queue_1" key="test_queue_1"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!--consumer配置监听-->
+    <!-- queue listener  观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 taskExecutor这个需要自己实现一个连接池 按照官方说法 除非特别大的数据量 一般不需要连接池-->
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto">
+        <rabbit:listener queues="test_queue_1" ref="messageConsumerService"/>
+    </rabbit:listener-container>
+>>>>>>> 0e64191175cc1f07721972653c7b33d76206bbc7
 </beans>
