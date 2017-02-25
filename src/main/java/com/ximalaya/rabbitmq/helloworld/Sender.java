@@ -1,7 +1,5 @@
 package com.ximalaya.rabbitmq.helloworld;
 
-
-import com.rabbitmq.client.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -11,12 +9,12 @@ import java.util.concurrent.TimeoutException;
 
 public class Sender {
 
-    public static final String QUEUE_NAME = "HELLO7";
+    public static final String QUEUE_NAME = "test_queues";
 
     public static void main(String[] args) throws IOException, TimeoutException {
 //     1.建立连接
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("127.0.0.1");
+        factory.setHost("182.92.188.170");
 
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
@@ -43,6 +41,6 @@ public class Sender {
 
         connection.close();
     }
-    
+
 
 }

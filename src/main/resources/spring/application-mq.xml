@@ -9,31 +9,33 @@
     http://www.springframework.org/schema/rabbit
     http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
-    <!--配置application-mq.xml配置文件,声明连接,交换机,queue以及consumer监听.-->
-    <description>rabbitmq 连接服务配置</description>
+
+    <context:annotation-config />
+
+    <context:component-scan base-package="com.ximalaya.rabbitmq.helloworld.*" />
 
     <!-- 连接配置 -->
     <context:property-placeholder location="classpath:rabbitmq.properties"/>
-    <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}"
-                               password="${mq.password}" port="${mq.port}"/>
-    <rabbit:admin connection-factory="connectionFactory"/>
 
-    <!-- spring template声明-->
-    <rabbit:template exchange="amqpExchange" id="amqpTemplate" connection-factory="connectionFactory"/>
+    <!-- 连接本地rabbitmq -->
+    <rabbit:connection-factory id="connectionFactory"
+                               host="${mq.host}" port="${mq.port}" />
 
-    <!--申明queue-->
-    <rabbit:queue id="test_queue_key" name="test_queue_key" durable="true" auto-delete="false" exclusive="false"/>
+    <rabbit:admin connection-factory="connectionFactory" id="amqpAdmin" />
 
-    <!--申明exchange交换机并绑定queue-->
-    <rabbit:direct-exchange name="amqpExchange" durable="true" auto-delete="false" id="amqpExchange">
+    <!-- queue 队列声明 -->
+    <rabbit:queue id="test_queues" durable="true"
+                  auto-delete="false" exclusive="false" name="test_queues" />
+
+    <!-- exchange queue binging key 绑定 -->
+    <rabbit:direct-exchange name="mq-exchange"
+                            durable="true" auto-delete="false" id="mq-exchange">
         <rabbit:bindings>
-            <rabbit:binding queue="test_queue_key" key="test_queue_key"/>
+            <rabbit:binding queue="test_queues" key="test_queues" />
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
-    <!--consumer配置监听-->
-    <bean id="reveiver" class="com.demo.mq.receive.Reveiver"/>
-    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto">
-        <rabbit:listener queues="test_queue_key" ref="reveiver" method="receiveMessage"/>
-    </rabbit:listener-container>
+    <!-- spring template声明 -->
+    <rabbit:template exchange="mq-exchange" id="amqpTemplate"
+                     connection-factory="connectionFactory" />
 </beans>
