@@ -9,12 +9,15 @@ import java.util.concurrent.TimeoutException;
 
 public class Sender {
 
-    public static final String QUEUE_NAME = "test_queues";
+    public static final String QUEUE_NAME = "test_queue_1";
 
     public static void main(String[] args) throws IOException, TimeoutException {
 //     1.建立连接
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("182.92.188.170");
+
+        factory.setUsername("admin");
+        factory.setPassword("111111");
 
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
