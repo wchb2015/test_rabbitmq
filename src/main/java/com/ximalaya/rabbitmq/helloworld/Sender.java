@@ -15,7 +15,6 @@ public class Sender {
 //     1.建立连接
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("182.92.188.170");
-
         factory.setUsername("admin");
         factory.setPassword("111111");
 
