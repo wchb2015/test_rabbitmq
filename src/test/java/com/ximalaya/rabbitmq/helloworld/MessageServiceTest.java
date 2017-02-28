@@ -28,7 +28,7 @@ public class MessageServiceTest {
 
     @Test
     public void popMessage() throws Exception {
-
+        consumerService.popMessage("test_queue_1");
     }
 
 }
