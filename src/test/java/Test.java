@@ -20,7 +20,7 @@ public class Test {
     public void test01() {
         Assert.notNull(new Object(), "Object must not be null");
 //        Assert.notNull(null, "Object must not be null");
-        
+
         System.out.println("end");
     }
 }
