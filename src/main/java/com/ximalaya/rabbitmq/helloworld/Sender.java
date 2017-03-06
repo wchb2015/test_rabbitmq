@@ -9,7 +9,9 @@ import java.util.concurrent.TimeoutException;
 
 public class Sender {
 
-    public static final String QUEUE_NAME = "test_queue_1";
+    public static final String QUEUE_1 = "test_queue_1";
+    public static final String QUEUE_2 = "test_queue_0305";
+    public static final String QUEUE_3 = "test_queue0305_2";
 
     public static void main(String[] args) throws IOException, TimeoutException {
 //     1.建立连接
@@ -29,18 +31,19 @@ public class Sender {
          autoDelete - true if we are declaring an autodelete queue (server will delete it when no longer in use)
          arguments - other properties (construction arguments) for the queue
          */
-        channel.queueDeclare(QUEUE_NAME, true, false, false, null);
+        channel.queueDeclare(QUEUE_1, true, false, false, null);
 //     3.发送消息
 
-        String message = "Hello World!71";
+        String message = "这个消息payload 哈哈哈哈哈哈哈哈";
         /**
          * exchange - the exchange to publish the message to
          routingKey - the routing key
          props - other properties for the message - routing headers etc
          body - the message body
          */
-        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+        channel.basicPublish("", "queue_toptic_0305_1", null, message.getBytes());
 
+        channel.close();
         connection.close();
     }
 
