@@ -23,7 +23,7 @@ public class Receiver {
          autoDelete - true if we are declaring an autodelete queue (server will delete it when no longer in use)
          arguments - other properties (construction arguments) for the queue
          */
-        channel.queueDeclare(Sender.QUEUE_1, true, false, false, null);
+        channel.queueDeclare(Sender.QUEUE_4, true, false, false, null);
 
 //    3.创建Consumer
         QueueingConsumer consumer = new QueueingConsumer(channel);
@@ -33,7 +33,7 @@ public class Receiver {
          autoAck - true if the server should consider messages acknowledged once delivered; false if the server should expect explicit acknowledgements
          callback - an interface to the consumer object
          */
-        channel.basicConsume(Sender.QUEUE_1, false, consumer);
+        channel.basicConsume(Sender.QUEUE_4, false, consumer);
 //    4.接收消息
         while (true) {
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();

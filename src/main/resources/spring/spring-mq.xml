@@ -12,9 +12,6 @@
     <!--配置application-mq.xml配置文件,声明连接,交换机,queue以及consumer监听.-->
     <description>rabbitmq 连接服务配置</description>
 
-    <!-- 连接配置 -->
-    <context:property-placeholder location="classpath:rabbitmq.properties"/>
-
     <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}"
                                password="${mq.password}" port="${mq.port}"/>
 

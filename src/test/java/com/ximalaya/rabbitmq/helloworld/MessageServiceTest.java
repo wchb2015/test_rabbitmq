@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/application-mq.xml")
+@ContextConfiguration("classpath:spring/spring-mq.xml")
 public class MessageServiceTest {
 
     private String routingKey;
