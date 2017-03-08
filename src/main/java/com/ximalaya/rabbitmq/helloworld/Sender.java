@@ -35,7 +35,6 @@ public class Sender {
         channel.queueDeclare(QUEUE_4, true, false, false, null);
 //     3.发送消息
 
-        String message = "这个消息payload 哈哈哈哈哈哈哈哈";
         /**
          * exchange - the exchange to publish the message to
          routingKey - the routing key
@@ -44,6 +43,8 @@ public class Sender {
          */
 
         for (int i = 0; i < 10; i++) {
+            String message = "这个消息payload 哈哈哈哈哈哈哈哈______" + i;
+
             channel.basicPublish("ex_dir_0307", "", null, message.getBytes());
         }
 
