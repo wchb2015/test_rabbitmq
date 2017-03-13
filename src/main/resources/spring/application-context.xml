@@ -12,6 +12,6 @@
             </list>
         </property>
     </bean>
-    <import resource="classpath:spring/spring-mq.xml"/>
+    <import resource="classpath:spring/ele-mq.xml"/>
 
 </beans>

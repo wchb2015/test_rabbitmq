@@ -19,8 +19,7 @@ public class MessageListenerDemo implements MessageListener {
         try {
             String content = new String(message.getBody(), CHARSET);
             LOG.info("message : {}", content);
-            throw new RuntimeException();
-        } catch (Exception e) {
+         } catch (Exception e) {
             LOG.error("parse mq message error1. {}", e);
         }
     }
