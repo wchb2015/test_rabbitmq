@@ -24,7 +24,7 @@ public class MessageListenerDemo implements MessageListener, ChannelAwareMessage
             String content = new String(message.getBody(), CHARSET);
             if (content.contains("99")) {
                 LOG.error("This is a error!!!");
-                throw new RuntimeException();
+//                throw new RuntimeException();
             }
             LOG.info("insert2DB success: {}", content);
         } catch (UnsupportedEncodingException e) {
