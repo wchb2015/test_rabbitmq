@@ -9,9 +9,6 @@ import java.util.concurrent.TimeoutException;
 
 public class Sender {
 
-    public static final String QUEUE_1 = "test_queue_1";
-    public static final String QUEUE_2 = "test_queue_0305";
-    public static final String QUEUE_3 = "test_queue0305_2";
     public static final String QUEUE_4 = "queue_dir_0307";
 
     public static void main(String[] args) throws IOException, TimeoutException {
@@ -42,12 +39,10 @@ public class Sender {
          body - the message body
          */
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 100; i++) {
             String message = "这个消息payload 哈哈哈哈哈哈哈哈______" + i;
-
             channel.basicPublish("ex_dir_0307", "", null, message.getBytes());
         }
-
         channel.close();
         connection.close();
     }
