@@ -1,4 +1,4 @@
-package com.ximalaya.rabbitmq.uitl;
+package com.ele.rabbitmq.uitl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.ximalaya.rabbitmq.helloworld;
+package com.ele.rabbitmq.helloworld;
 
 import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;

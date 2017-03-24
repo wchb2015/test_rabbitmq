@@ -1,5 +1,4 @@
-import com.ximalaya.rabbitmq.dto.OrderDTO;
-import org.junit.*;
+import com.ele.rabbitmq.dto.OrderDTO;
 
 import java.util.Date;
 

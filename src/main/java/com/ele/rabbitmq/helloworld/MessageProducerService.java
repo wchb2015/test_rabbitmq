@@ -1,4 +1,4 @@
-package com.ximalaya.rabbitmq.helloworld;
+package com.ele.rabbitmq.helloworld;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

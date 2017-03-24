@@ -1,4 +1,4 @@
-package com.ximalaya.rabbitmq.dto;
+package com.ele.rabbitmq.dto;
 
 import lombok.Builder;
 
