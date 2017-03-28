@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamTest {
@@ -76,9 +78,10 @@ public class StreamTest {
     public void test06() {
         stringCollection
                 .stream()
-                .sorted()
-                .forEach(System.out::println);
-        System.out.println("-----");
+                .sorted().forEach(System.out::print);
+        ;
+        System.out.println("-----" + stringCollection);
+
         stringCollection
                 .stream()
                 .sorted((o1, o2) -> {
@@ -140,7 +143,7 @@ public class StreamTest {
         long t0 = System.nanoTime();
 
         long count = values.stream().sorted().count();
-        System.out.println(count);
+        System.out.println("list size : " + count);
 
         long t1 = System.nanoTime();
 
@@ -150,7 +153,7 @@ public class StreamTest {
         long p_t0 = System.nanoTime();
 
         long p_count = values.parallelStream().sorted().count();
-        System.out.println(p_count);
+        System.out.println("list size : " + p_count);
 
         long p_t1 = System.nanoTime();
 
@@ -181,4 +184,130 @@ public class StreamTest {
         map.forEach((id, val) -> System.out.println(val));
     }
 
+    @Test
+    public void test12() {
+        List<Integer> nums = Arrays.asList(1, 2, 3, 4);
+        List<Integer> squareNums = nums.stream().
+                map(n -> n * n).
+                collect(Collectors.toList());
+        System.out.println(squareNums);
+    }
+
+    @Test
+    public void test13() {
+        Stream<List<Integer>> inputStream = Stream.of(
+                Arrays.asList(1),
+                Arrays.asList(2, 3),
+                Arrays.asList(4, 5, 6)
+        );
+        Stream<Integer> outputStream = inputStream.
+                flatMap((childList) -> childList.stream());
+    }
+
+    @Test
+    public void test14() {
+        Integer[] sixNums = {1, 2, 3, 4, 5, 6};
+        Integer[] evens =
+                Stream.of(sixNums).filter(n -> n % 2 == 0).toArray(Integer[]::new);
+
+        System.out.println(evens);
+    }
+
+    @Test
+    public void test15() {
+        List list = Stream.of("one", "two", "three", "four")
+                .filter(e -> e.length() > 3)
+                .peek(e -> System.out.println("Filtered value: " + e))
+                .map(String::toUpperCase)
+                .peek(e -> System.out.println("Mapped value: " + e))
+                .collect(Collectors.toList());
+
+        System.out.println("___" + list);
+    }
+
+    @Test
+    public void test16() {
+        List<Person> persons = new ArrayList();
+        for (int i = 1; i <= 10000; i++) {
+            Person person = new Person(i, "name" + i);
+            persons.add(person);
+        }
+        List<String> personList2 = persons.stream().
+                map(Person::getName).limit(10).skip(3).collect(Collectors.toList());
+        System.out.println(personList2);
+    }
+
+    @Test
+    public void test17() {
+        List<Person> persons = new ArrayList();
+        for (int i = 1; i <= 5; i++) {
+            Person person = new Person(i, "name" + i);
+            persons.add(person);
+        }
+        List<Person> personList2 = persons.stream().sorted((p1, p2) ->
+                p1.getName().compareTo(p2.getName())).limit(2).collect(Collectors.toList());
+        System.out.println(personList2);
+    }
+
+    @Test
+    public void test18() {
+        List<String> l = new ArrayList(Arrays.asList("one", "two"));
+        Stream<String> sl = l.stream();
+        sl.forEach(s -> l.add("three"));
+    }
+
+    @Test
+    public void test19() {
+        List<String> l = Stream.of("a", "b", "c", "b").distinct().collect(Collectors.toList());
+        System.out.println(l); //[a, b, c]
+    }
+
+    @Test
+    public void test20() {
+        List<Integer> l = IntStream.range(1, 10).filter(i -> i % 2 == 0).boxed().collect(Collectors.toList());
+        System.out.println(l); //[2, 4, 6, 8]
+    }
+
+    @Test
+    public void test21() {
+        List<Integer> l = Stream.of('a', 'b', 'c').map(c -> c.hashCode()).collect(Collectors.toList());
+        System.out.println(l); //[97, 98, 99]
+    }
+
+    @Test
+    public void test22() {
+        String poetry = "Where, before me, are the ages that have gone?/n" + "And where, behind me, are the coming generations?/n" + "I think of heaven and earth, without limit, without end,/n" + "And I am all alone and my tears fall down.";
+        Stream<String> lines = Arrays.stream(poetry.split("/n"));
+        Stream<String> words = lines.flatMap(line -> Arrays.stream(line.split(" ")));
+        List<String> l = words.map(w -> {
+            if (w.endsWith(",") || w.endsWith(".") || w.endsWith("?"))
+                return w.substring(0, w.length() - 1).trim().toLowerCase();
+            else return w.trim().toLowerCase();
+        }).distinct().sorted().collect(Collectors.toList());
+        System.out.println(l); //[ages, all, alone, am, and, are, before, behind, coming, down, earth, end, fall, generations, gone, have, heaven, i, limit, me, my, of, tears, that, the, think, where, without]
+    }
+
+
+    class Person {
+        public int no;
+        private String name;
+
+        public Person(int no, String name) {
+            this.no = no;
+            this.name = name;
+        }
+
+        public String getName() {
+
+            return name;
+        }
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "no=" + no +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
+    }
 }

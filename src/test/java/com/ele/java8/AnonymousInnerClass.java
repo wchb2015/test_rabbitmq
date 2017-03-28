@@ -3,7 +3,7 @@ package com.ele.java8;
 
 import org.junit.Test;
 
-abstract class Person {
+abstract class AbsPerson {
     public abstract void eat(String sth);
 }
 
@@ -12,7 +12,7 @@ public class AnonymousInnerClass {
     private final String name = null;
 
     public static void main(String[] args) {
-        Person p = new Person() {
+        AbsPerson p = new AbsPerson() {
             @Override
             public void eat(String sth) {
                 System.out.println("eat " + sth);
@@ -20,7 +20,6 @@ public class AnonymousInnerClass {
         };
 
         p.eat("meat");
-
 
     }
 
