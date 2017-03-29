@@ -28,7 +28,6 @@ public class FruitGenerator implements Generator<String> {
         System.out.println("__________");
 
         out("findingsea", 123, 11.11, true);
-
     }
 
     public static <T> void out(T... args) {
