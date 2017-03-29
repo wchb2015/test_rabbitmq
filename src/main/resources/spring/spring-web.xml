@@ -33,6 +33,6 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     </bean>
 
     <!--4:扫描web相关的bean-->
-    <context:component-scan base-package="com.ximalaya.rabbitmq.web"/>
+    <context:component-scan base-package="com.ele.rabbitmq.web"/>
 
 </beans>

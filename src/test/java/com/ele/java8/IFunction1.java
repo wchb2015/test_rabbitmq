@@ -8,4 +8,8 @@ public interface IFunction1 {
     static void staticMethod() {
         System.out.println("IFunction1.staticMethod");
     }
+
+
+    default void methodConflict() {
+    }
 }

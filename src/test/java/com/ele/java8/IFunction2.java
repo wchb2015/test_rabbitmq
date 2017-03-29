@@ -14,4 +14,7 @@ public interface IFunction2 {
         stringList.add(function2.methodWithOneParameter("haha"));
         return stringList;
     }
+
+    default void methodConflict() {
+    }
 }
