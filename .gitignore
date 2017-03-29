@@ -1,4 +1,5 @@
 src/main/resources/rabbitmq.properties
+velocity.log
 
 # Package Files #
 *.iml

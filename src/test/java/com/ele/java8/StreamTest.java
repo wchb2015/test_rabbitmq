@@ -287,6 +287,25 @@ public class StreamTest {
         System.out.println(l); //[ages, all, alone, am, and, are, before, behind, coming, down, earth, end, fall, generations, gone, have, heaven, i, limit, me, my, of, tears, that, the, think, where, without]
     }
 
+    @Test
+    public void test23() {
+        String question = "java";
+
+        List<String> engines = new ArrayList<String>() {{
+            add("http://www.google.com/?q=");
+            add("http://duckduckgo.com/?q=");
+            add("http://www.bing.com/search?q=");
+        }};
+
+        // get element as soon as it is available
+        Optional<String> result = engines.stream().parallel().map((base) -> {
+            return base + question;
+            // open connection and fetch the result
+            //return WS.url(url).get();
+        }).findFirst();
+
+        System.out.println("result: " + result.get());
+    }
 
     class Person {
         public int no;
@@ -310,4 +329,6 @@ public class StreamTest {
                     '}';
         }
     }
+
+
 }
