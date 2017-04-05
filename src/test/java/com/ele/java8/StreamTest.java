@@ -4,8 +4,10 @@ package com.ele.java8;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -305,6 +307,25 @@ public class StreamTest {
         }).findFirst();
 
         System.out.println("result: " + result.get());
+    }
+
+    @Test
+    public void test24() {
+        List<String> l = new ArrayList(Arrays.asList("one", "two"));
+        Stream<String> sl = l.stream();
+        l.add("three");
+        String s = sl.collect(joining(" "));
+    }
+
+    @Test
+    public void test25() {
+        File[] hiddenFiles = new File(".").listFiles(File::isHidden);
+
+        hiddenFiles.hashCode();
+    }
+
+    private <A, R> Collector<? super String, A, R> joining(String s) {
+        return null;
     }
 
     class Person {
