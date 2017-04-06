@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.function.IntPredicate;
+import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -322,6 +324,17 @@ public class StreamTest {
         File[] hiddenFiles = new File(".").listFiles(File::isHidden);
 
         hiddenFiles.hashCode();
+    }
+
+    @Test
+    public void test26() {
+        IntPredicate evenNumbers = (int i) -> i % 2 == 0;
+        System.out.println(evenNumbers.test(11));
+
+        Predicate<Integer> oddNumbers = (Integer i) -> i % 2 == 1;
+
+        System.out.println(oddNumbers.test(999));
+
     }
 
     private <A, R> Collector<? super String, A, R> joining(String s) {
