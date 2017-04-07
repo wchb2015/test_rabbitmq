@@ -8,10 +8,42 @@ import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StreamTest2 {
 
     List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5);
+
+    @Test
+    public void test06() {
+        Stream.of("d2", "a2", "b1", "b3", "c")
+                .map(s -> {
+                    System.out.println("map: " + s);
+                    return s.toUpperCase();
+                })
+                .anyMatch(s -> {
+                    System.out.println("最终操作 anyMatch: " + s);
+                    return s.startsWith("A");
+                });
+    }
+
+    @Test
+    public void test05() {
+        Stream.of("d2", "a2", "b1", "b3", "c")
+                .filter(s -> {
+                    System.out.println("filter: " + s);
+                    return true;
+                })
+                .forEach(s -> System.out.println("forEach: " + s));
+
+        System.out.println("==========");
+
+        Stream.of("d2", "a2", "b1", "b3", "c")
+                .filter(s -> {
+                    System.out.println("filter: " + s);
+                    return true;
+                });
+    }
 
     @Test
     public void test01() {

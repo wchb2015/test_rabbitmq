@@ -2,32 +2,61 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:rabbit="http://www.springframework.org/schema/rabbit"
-       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-    http://www.springframework.org/schema/rabbit
-    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+  		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    	http://www.springframework.org/schema/rabbit
+        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
-    <!--配置application-mq.xml配置文件,声明连接,交换机,queue以及consumer监听.-->
-    <description>rabbitmq 连接服务配置</description>
+    <!-- MQ连接服务配置 -->
+    <bean id="taskExecutor2" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!--核心线程数 -->
+        <property name="corePoolSize" value="100"/>
+        <!--线程池维护线程所允许的空闲时间 -->
+        <property name="keepAliveSeconds" value="3000"/>
+        <!--线程池对拒绝任务(无线程可用)的处理策略 -->
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
+        </property>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
 
-    <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}"
-                               password="${mq.password}" port="${mq.port}" virtual-host="${mq.vhost}"/>
+    <!-- apollo mq连接配置 -->
+    <rabbit:connection-factory id="connectionFactory2"
+                               host="vpca-apollo-cis-rmq-1.vm.elenet.me" username="apollo" password="apollo"
+                               port="5673" virtual-host="apollo"/>
 
-    <context:component-scan base-package="com.ximalaya.rabbitmq.helloworld"/>
+    <!--老运单-->
+    <rabbit:queue id="lpd.talaris.team.ts.apollo.sos.order"
+                  name="lpd.talaris.team.ts.apollo.sos.order" durable="true" auto-delete="false"
+                  exclusive="false"/>
 
-    <!-- spring template声明-->
-    <rabbit:template exchange="amqpExchange" id="amqpTemplate" connection-factory="connectionFactory"/>
+    <!--新运单-->
+    <rabbit:queue id="lpd.talaris.team.ts.apollo.nsos.order"
+                  name="lpd.talaris.team.ts.apollo.nsos.order" durable="true" auto-delete="false"
+                  exclusive="false"/>
 
-    <!--申明queue-->
-    <rabbit:queue id="meepo.statistic.subsidy"  name="meepo.statistic.subsidy" durable="true" auto-delete="false" exclusive="false"/>
+    <!--骑手保险老运单-->
+    <rabbit:queue id="lpd.talaris.team.tss.insurance.apollo.sos.order"
+                  name="lpd.talaris.team.tss.insurance.apollo.sos.order" durable="true" auto-delete="false"
+                  exclusive="false"/>
 
-    <bean id="messageListenerDemo" class="com.ele.rabbitmq.helloworld.MessageListenerDemo"></bean>
+    <!--骑手保险新运单-->
+    <rabbit:queue id="lpd.talaris.team.tss.insurance.apollo.nsos.order"
+                  name="lpd.talaris.team.tss.insurance.apollo.nsos.order" durable="true" auto-delete="false"
+                  exclusive="false"/>
 
-    <!--consumer配置监听-->
-    <!-- queue listener  观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 taskExecutor这个需要自己实现一个连接池 按照官方说法 除非特别大的数据量 一般不需要连接池-->
-    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto">
-        <rabbit:listener queues="meepo.statistic.subsidy" ref="messageListenerDemo"/>
+    <bean id="apolloSubsidyConsumer" class="me.ele.meepo.statistic.consumer.ApolloSubsidyConsumer"></bean>
+    <bean id="nApolloSubsidyConsumer" class="me.ele.meepo.statistic.consumer.NApolloSubsidyConsumer"></bean>
+    <bean id="apolloTakerInsuranceConsumer" class="me.ele.meepo.statistic.consumer.ApolloTakerInsuranceConsumer"></bean>
+    <bean id="nApolloTakerInsuranceConsumer"
+          class="me.ele.meepo.statistic.consumer.NApolloTakerInsuranceConsumer"></bean>
+
+    <rabbit:listener-container connection-factory="connectionFactory2" acknowledge="auto" task-executor="taskExecutor2"
+                               concurrency="5">
+        <rabbit:listener ref="nApolloSubsidyConsumer" queues="lpd.talaris.team.ts.apollo.nsos.order"/>
+        <rabbit:listener ref="apolloSubsidyConsumer" queues="lpd.talaris.team.ts.apollo.sos.order"/>
+        <rabbit:listener ref="apolloTakerInsuranceConsumer" queues="lpd.talaris.team.tss.insurance.apollo.sos.order"/>
+        <rabbit:listener ref="nApolloTakerInsuranceConsumer" queues="lpd.talaris.team.tss.insurance.apollo.nsos.order"/>
     </rabbit:listener-container>
+
 </beans>
