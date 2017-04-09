@@ -1,5 +1,6 @@
 package com.ele.rabbitmq.helloworld;
 
+import com.ele.rabbitmq.comsumer.MessageConsumerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

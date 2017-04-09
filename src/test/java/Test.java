@@ -2,6 +2,12 @@ import org.springframework.util.Assert;
 
 public class Test {
 
+    @org.junit.Test
+    public void test02() {
+        int i = 8143;
+        System.out.println(Integer.toBinaryString(i));
+    }
+
 
     @org.junit.Test
     public void testAssert() {

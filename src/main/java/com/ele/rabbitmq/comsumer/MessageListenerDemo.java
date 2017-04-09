@@ -1,15 +1,14 @@
-package com.ele.rabbitmq.helloworld;
+package com.ele.rabbitmq.comsumer;
 
 import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 
 import java.io.UnsupportedEncodingException;
 
-public class MessageListenerDemo implements MessageListener, ChannelAwareMessageListener {
+public class MessageListenerDemo implements MessageListener {
 
     private static final String CHARSET = "utf-8";
 
