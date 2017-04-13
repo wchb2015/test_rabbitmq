@@ -9,7 +9,7 @@ import java.util.concurrent.TimeoutException;
 
 public class Sender {
 
-    public static final String QUEUE_4 = "queue_dir_0307";
+    public static final String QUEUE_4 = "queue_0410";
 
     public static void main(String[] args) throws IOException, TimeoutException {
 //     1.建立连接
@@ -17,6 +17,7 @@ public class Sender {
         factory.setHost("182.92.188.170");
         factory.setUsername("admin");
         factory.setPassword("111111");
+        factory.setVirtualHost("test0410");
 
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
@@ -39,12 +40,14 @@ public class Sender {
          body - the message body
          */
 
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 10000; i++) {
             String message = "这个消息payload 哈哈哈哈哈哈哈哈______" + i;
-            channel.basicPublish("ex_dir_0307", "", null, message.getBytes());
+            channel.basicPublish("", QUEUE_4, null, message.getBytes());
         }
         channel.close();
         connection.close();
+
+        System.out.println("*****end*****");
     }
 
 }

@@ -21,22 +21,10 @@ public class MessageListenerDemo implements MessageListener {
     private void parseMessage(Message message) {
         try {
             String content = new String(message.getBody(), CHARSET);
-            if (content.contains("99")) {
-                LOG.error("This is a error!!!");
-//                throw new RuntimeException();
-            }
-            LOG.info("insert2DB success: {}", content);
+            LOG.info("insert2DB success: {},thread:{}", content, Thread.currentThread().getName());
         } catch (UnsupportedEncodingException e) {
             LOG.error("parse mq message error.", e);
         }
     }
 
-    public void onMessage(Message message, Channel channel) throws Exception {
-        try {
-            parseMessage(message);
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-        } catch (Exception e) {
-            channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
-        }
-    }
 }
