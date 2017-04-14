@@ -11,5 +11,6 @@ public interface IFunction1 {
 
 
     default void methodConflict() {
+        System.out.println("IFunction1");
     }
 }

@@ -16,5 +16,6 @@ public interface IFunction2 {
     }
 
     default void methodConflict() {
+        System.out.println("IFunction2");
     }
 }
