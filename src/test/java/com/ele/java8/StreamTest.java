@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.util.stream.IntStream.range;
+
 public class StreamTest {
     static List<String> stringCollection = new ArrayList<>();
 
@@ -66,7 +68,7 @@ public class StreamTest {
     @Test
     public void test05() {
         stringCollection
-                .stream()
+                .parallelStream()
                 .filter((s) -> s.startsWith("a"))
                 .forEach(System.out::println);
 
@@ -268,7 +270,7 @@ public class StreamTest {
 
     @Test
     public void test20() {
-        List<Integer> l = IntStream.range(1, 10).filter(i -> i % 2 == 0).boxed().collect(Collectors.toList());
+        List<Integer> l = range(1, 10).filter(i -> i % 2 == 0).boxed().collect(Collectors.toList());
         System.out.println(l); //[2, 4, 6, 8]
     }
 
@@ -337,6 +339,22 @@ public class StreamTest {
 
     }
 
+    @Test
+    public void test27() {
+
+        List<Dish> memu = Arrays.asList(new Dish("pork", 110), new Dish("beef", 500), new Dish("chicken", 200));
+
+        List<String> names = memu.stream().filter(d -> {
+            System.out.println("filtering :" + d.getName());
+            return d.getCalories() > 300;
+        }).map(dish -> {
+            System.out.println("mapping :" + dish.getName());
+            return dish.getName();
+        }).limit(3).collect(Collectors.toList());
+
+        System.out.println(names);
+    }
+
     private <A, R> Collector<? super String, A, R> joining(String s) {
         return null;
     }
@@ -364,5 +382,31 @@ public class StreamTest {
         }
     }
 
+    class Dish {
+
+        private String name;
+        private Integer calories;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Integer getCalories() {
+            return calories;
+        }
+
+        public void setCalories(Integer calories) {
+            this.calories = calories;
+        }
+
+        public Dish(String name, Integer calories) {
+            this.name = name;
+            this.calories = calories;
+        }
+    }
 
 }

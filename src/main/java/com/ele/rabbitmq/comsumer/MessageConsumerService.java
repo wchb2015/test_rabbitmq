@@ -1,4 +1,4 @@
-package com.ele.rabbitmq.helloworld;
+package com.ele.rabbitmq.comsumer;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
