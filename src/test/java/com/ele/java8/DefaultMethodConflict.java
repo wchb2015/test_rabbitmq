@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class DefaultMethodConflict implements IFunction2, IFunction1 {
+public class DefaultMethodConflict implements IFunction2 {
 
     @Override
     public String methodWithOneParameter(String name) throws RuntimeException {
@@ -22,10 +22,6 @@ public class DefaultMethodConflict implements IFunction2, IFunction1 {
         System.out.println("DefaultMethodConflict");
     }*/
 
-    @Override
-    public void methodWithNoParameter() {
-
-    }
 
     @Test
     public void test() {
