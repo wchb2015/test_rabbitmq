@@ -1,6 +1,7 @@
 package com.ele.gc;
 
 /**
+ * 虚拟机栈和本地方法栈的 OOM测试
  * VM Args:-Xss228k
  */
 public class JavaVMStackSOF {
