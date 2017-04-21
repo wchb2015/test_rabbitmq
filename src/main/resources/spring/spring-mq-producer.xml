@@ -26,7 +26,7 @@
     </rabbit:direct-exchange>
 
     <!-- spring template声明-->
-    <rabbit:template exchange="amqpExchange" id="amqpTemplate" connection-factory="connectionFactory"/>
+    <rabbit:template exchange="mq-exchange-0420" id="amqpTemplate" connection-factory="connectionFactory"/>
 
     <!-- queue 队列声明 -->
     <rabbit:queue id="rabbit_queue_one_0420" durable="true"
