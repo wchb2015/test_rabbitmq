@@ -7,7 +7,6 @@ import org.springframework.amqp.core.MessageListener;
 
 import java.io.UnsupportedEncodingException;
 
-
 public class NApolloSubsidyConsumer implements MessageListener {
     private static final String CHARSET = "utf-8";
 

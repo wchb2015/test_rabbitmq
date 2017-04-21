@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/rabbit
+    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+    <rabbit:connection-factory id="connectionFactory" host="192.168.107.138" username="meepo"
+                               password="OQYFTIZW" port="5672" virtual-host="meepo"/>
+
+    <rabbit:admin connection-factory="connectionFactory" id="amqpAdmin"/>
+
+    <rabbit:direct-exchange name="knight_team_change"
+                            durable="true" auto-delete="false" id="knight_team_change">
+        <rabbit:bindings>
+            <rabbit:binding queue="lpd.meepo.ws.knight.team.change" key="lpd.meepo.ws.knight.team.change"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!-- spring template声明-->
+    <rabbit:template exchange="knight_team_change" id="amqpTemplate" connection-factory="connectionFactory"/>
+
+    <!-- queue 队列声明 -->
+    <rabbit:queue id="lpd.meepo.ws.knight.team.change" durable="true"
+                  auto-delete="false" exclusive="false" name="lpd.meepo.ws.knight.team.change"/>
+
+    <bean id="messageProducerService" class="com.ele.rabbitmq.helloworld.MessageProducerService"/>
+
+</beans>

@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 
 /**
  * 使用unsafe分配本机内存
- * VM args: -Xmx20M -XX:MaxDirectMemorySize=10M
+ * VM args: -Xmx20M -XX:MaxDirectMemorySize=10M DONE ?
  */
 public class DirectMemoryOOM {
 

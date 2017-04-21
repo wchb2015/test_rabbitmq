@@ -11,6 +11,6 @@
             </list>
         </property>
     </bean>
-    <import resource="classpath:spring/spring-mq-producer.xml"/>
+    <import resource="classpath:spring/spring-mq-knight.xml"/>
 
 </beans>
