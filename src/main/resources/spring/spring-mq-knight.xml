@@ -7,8 +7,11 @@
     http://www.springframework.org/schema/rabbit
     http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
-    <rabbit:connection-factory id="connectionFactory" host="192.168.107.138" username="meepo"
-                               password="OQYFTIZW" port="5672" virtual-host="meepo"/>
+   <rabbit:connection-factory id="connectionFactory" host="192.168.107.138" username="meepo"
+                               password="OQYFTIZW" port="5672" virtual-host="meepo2"/>
+
+<!--    <rabbit:connection-factory id="connectionFactory" host="182.92.188.170" username="admin"
+                               password="111111" port="5672" virtual-host="meepo"/>-->
 
     <rabbit:admin connection-factory="connectionFactory" id="amqpAdmin"/>
 

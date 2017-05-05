@@ -14,7 +14,6 @@ public class MessageServiceTest {
 
     //    private String routingKey = "rabbit_queue_one_0420";
     private String routingKey = "lpd.meepo.ws.knight.team.change";
-    private String message = "这个消息哈哈......AAAAA";
 
     @Autowired
     private MessageProducerService producerService;
@@ -29,6 +28,7 @@ public class MessageServiceTest {
         msg.setKnight_id(888L);
         msg.setOperation_type(1);
         msg.setOrg_name("测试代理商");
+        msg.setTeam_id("9999");
         msg.setTeam_name("测试团队名字");
         return JSON.toJSONString(msg);
     }

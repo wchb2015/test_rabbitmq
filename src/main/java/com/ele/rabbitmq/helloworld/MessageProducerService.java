@@ -9,6 +9,6 @@ public class MessageProducerService {
     private AmqpTemplate amqpTemplate;
 
     public void pushToMessageQueue(String routingKey, String message) {
-        amqpTemplate.convertAndSend(routingKey, message);
+         amqpTemplate.convertAndSend(routingKey, message);
     }
 }
