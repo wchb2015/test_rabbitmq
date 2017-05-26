@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 
-public class ApplicationBootstrap extends Bootstrap {
+public class TestRabbitMqBootstrap extends Bootstrap {
 
-    private static Logger LOG = LoggerFactory.getLogger(ApplicationBootstrap.class);
+    private static Logger LOG = LoggerFactory.getLogger(TestRabbitMqBootstrap.class);
 
     public static void main(String[] args) {
         initApplicationContext(args);

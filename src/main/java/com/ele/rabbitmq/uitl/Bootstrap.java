@@ -19,7 +19,7 @@ public class Bootstrap {
             } else {
                 new ClassPathXmlApplicationContext(args);
             }
-            LOG.info("BeanDefinitionNames:{}", Arrays.asList(context.getBeanDefinitionNames()));
+            LOG.info("   BeanDefinitionNames:{}", Arrays.asList(context.getBeanDefinitionNames()));
         } catch (Throwable t) {
             LOG.error("Throwable Occurs in Bootstrap!", t);
             System.exit(-1);
