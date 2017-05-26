@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/rabbit
-    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
 
-    <!--   <rabbit:connection-factory id="connectionFactory" host="192.168.107.138" username="meepo"
-                                   password="OQYFTIZW" port="5672" virtual-host="meepo2"/>-->
-
-    <rabbit:connection-factory id="connectionFactory" host="182.92.188.170" username="admin"
-                               password="111111" port="5672" virtual-host="meepo2"/>
+    <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}"
+                               password="${mq.password}" port="${mq.port}" virtual-host="${mq.vhost}"/>
 
     <rabbit:admin connection-factory="connectionFactory" id="amqpAdmin"/>
 
@@ -28,7 +21,4 @@
     <!-- queue 队列声明 -->
     <rabbit:queue id="lpd.meepo.ws.knight.team.change" durable="true"
                   auto-delete="false" exclusive="false" name="lpd.meepo.ws.knight.team.change"/>
-
-    <bean id="messageProducerService" class="com.ele.rabbitmq.helloworld.MessageProducerService"/>
-
 </beans>
