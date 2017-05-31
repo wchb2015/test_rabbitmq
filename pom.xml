@@ -216,6 +216,7 @@
                 </configuration>
             </plugin>
             <plugin>
+
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.0.0</version>
@@ -230,6 +231,7 @@
                         <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
+                            <!-- mvn help:describe -Dplugin=assembly-->
                             <goal>single</goal>
                         </goals>
                     </execution>
