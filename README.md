@@ -1,17 +1,17 @@
 # test_rabbitmq
-####rabbitmq demo
-####[走进RabbitMq](http://www.jianshu.com/p/a5f7fce67803)
+#### rabbitmq demo
+#### [走进RabbitMq](http://www.jianshu.com/p/a5f7fce67803)
 
 
-###流程:
-####消息生产者:  
+### 流程:
+#### 消息生产者:  
 1. 获取Connection  
 2. 获取Channel  
 3. 定义Exchange,Queue  
 4. 使用一个RoutingKey将Queue Binding到一个Exchange上  
 5. 通过指定一个Exchange和一个RoutingKey来将消息发送到对应的Queue上  
 
-####消息消费者:  
+#### 消息消费者:  
 1.获取Connection  
 2.获取Channel  
 3.指定一个**Queue**直接到它关心的Queue上取消息,它对Exchange,RoutingKey及如何binding都不关心,到对应的Queue上取消息就OK了.  
